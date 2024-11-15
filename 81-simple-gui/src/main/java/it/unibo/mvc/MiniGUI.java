@@ -28,11 +28,17 @@ public class MiniGUI {
      */
     public MiniGUI() {
         final JPanel canvas = new JPanel();
-        canvas.setLayout(new BorderLayout());
+        canvas.setLayout(new BorderLayout()); // configurazione del canvas per utilizzare il layout manager BorderLayout
         final JButton write = new JButton("Print a random number on standard output");
-        canvas.add(write, BorderLayout.CENTER);
-        frame.setContentPane(canvas);
+        canvas.add(write, BorderLayout.CENTER); // aggiungo il buttone al pannello, ed è posizionato sempre al centro
+        frame.setContentPane(canvas); // il frame utilizza come suo componente principale il JPanel canvas
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        /*
+         * Part 1 
+         */
+        final JPanel canvas2 = new JPanel();
+
         /*
          * Handlers
          */
