@@ -1,8 +1,19 @@
 package it.unibo.deathnote.impl;
+import java.util.ArrayList;
+import java.util.List; 
+
 import it.unibo.deathnote.api.DeathNote;
 
 public  class DeathNoteImplementation implements DeathNote {
 
+    private final List<Death> deaths;
+
+    private String lastName;
+
+    public DeathNoteImplementation() {
+        deaths = new ArrayList<>();
+    }
+    
     @Override
     public String getRule(int ruleNumber) {
         if (ruleNumber < 1 || ruleNumber > RULES.size()) {
@@ -13,8 +24,15 @@ public  class DeathNoteImplementation implements DeathNote {
 
     @Override
     public void writeName(String name) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'writeName'");
+        if (name == null) {
+            throw new NullPointerException("name is equals null");
+        } else {
+            Death newDeathPers = new Death(name, "", "");
+            deaths.add(newDeathPers);
+            newDeathPers.setNameTime(System.currentTimeMillis());
+            newDeathPers.setCause("");
+            lastName = name;
+        }
     }
 
     @Override
@@ -43,8 +61,12 @@ public  class DeathNoteImplementation implements DeathNote {
 
     @Override
     public boolean isNameWritten(String name) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'isNameWritten'");
+        for (Death death : deaths) {
+            if (death.getName()== name) {
+                return true;
+            }
+        }
+                return false;
     }
 
 }

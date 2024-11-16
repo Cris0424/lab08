@@ -3,6 +3,7 @@ package it.unibo.deathnote;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -25,10 +26,19 @@ class TestDeathNote {
             deathNote.getRule(0);
             fail("Expected an IllegalArgumentException for rule number zero");
         } catch (Exception e) {
-            assertEquals("rule number is smaller than 1 or larger than the number of rules", e.getMessage());
-            assertNotNull(e.getMessage(), "message of exceptions it is not null");
-            assertFalse(e.getMessage().isBlank(), "il messaggio di eccezzione non può essere vuoto o composto da spazi");
+            assertEquals("Rule number is smaller than 1 or larger than the number of rules", e.getMessage());
+            assertNotNull(e.getMessage(), "Exception message should not be empty");
+            assertFalse(e.getMessage().isBlank(), "Exception message should not be blank");
         }
+    }
+
+    @Test
+    void testWriteName() {
+        assertFalse(deathNote.isNameWritten("Name Surname"));
+        deathNote.writeName("Cristian Qorri");
+        assertTrue(deathNote.isNameWritten("Cristian Qorri"));
+        assertFalse(deathNote.isNameWritten("Name Surname"));
+        assertFalse(deathNote.isNameWritten(""));
     }
     
 }
