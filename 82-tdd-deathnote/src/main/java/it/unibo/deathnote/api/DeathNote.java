@@ -3,6 +3,12 @@ package it.unibo.deathnote.api;
 import java.util.List;
 
 /**
+ * Un DeathNote è un libro speciale destinato ad essere utilizzato dai Shinigami (dei della morte) per uccidere esseri umani,
+ * estendendo così la loro stessa vita. Ogni DeathNote ha un insieme di regole che devono essere seguite
+ * per utilizzarlo correttamente.
+ */
+
+/**
  * A DeathNote is a special book intended to be used by Shinigamis (Death gods) to kill humans,
  * thereby extending their own lives. Each DeathNote has a set of rules that must be followed
  * in order to use it properly.
