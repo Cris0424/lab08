@@ -1,10 +1,14 @@
 package it.unibo.deathnote.impl;
 import java.util.ArrayList;
-import java.util.List; 
+import java.util.List;
+import java.util.Objects;
 
 import it.unibo.deathnote.api.DeathNote;
 
 public  class DeathNoteImplementation implements DeathNote {
+
+    private static final int FOURTY_MILLSEC = 40;
+    int INVALID_CAUSE_TIME = 100;
 
     private final List<Death> deaths;
 
@@ -37,26 +41,69 @@ public  class DeathNoteImplementation implements DeathNote {
 
     @Override
     public boolean writeDeathCause(String cause) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'writeDeathCause'");
+        if (cause == null || deaths.isEmpty()) {
+            throw new IllegalStateException("cause is null");
+        }
+        for (Death death : deaths) {
+            if (death.getName() == lastName) {
+                if (System.currentTimeMillis() - death.getNameTime() < FOURTY_MILLSEC) {
+                    death.setCause(cause);
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+        }
+        return false;
     }
 
     @Override
     public boolean writeDetails(String details) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'writeDetails'");
+        if (details == null || deaths.isEmpty() ) {
+            throw new IllegalStateException("details is null");
+        }
+        // recupero l'oggetto death
+        Death lasDeath = deaths.get(deaths.size() - 1); // oggetto lastDeath rappresenta l'ultimo decesso registrato, su cui verranno aggiunti i dettagli
+        if (System.currentTimeMillis() - lasDeath.getTimeCause() < INVALID_CAUSE_TIME) {
+            lasDeath.setDetail(details);
+            return true;
+        } else {
+            return false;
+        }
     }
 
     @Override
     public String getDeathCause(String name) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getDeathCause'");
+        if(isNameWritten(name) == false){
+            throw new IllegalStateException("name not written");
+        }
+        for(Death death : deaths){
+            if(Objects.equals(death.getName(), name)){
+                if(death.getCause() == null){
+                    return "heart attack";
+                }else {
+                    return death.getCause();
+                }
+            }
+        }
+        return null;
     }
 
     @Override
     public String getDeathDetails(String name) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getDeathDetails'");
+        if (isNameWritten(name) == false) {
+            throw new IllegalArgumentException("name not written");
+        }
+        for (Death death : deaths) {
+            if (Objects.equals(death.getName(), name)) {
+                if (death.getDetails() == null) {
+                    return "no datails";
+                } else {
+                    return death.getDetails();
+                }
+            }
+        }
+                return null; // auto compialto
     }
 
     @Override

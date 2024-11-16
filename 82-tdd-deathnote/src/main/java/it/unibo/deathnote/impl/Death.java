@@ -28,4 +28,24 @@ public class Death {
         this.tCause = System.currentTimeMillis();
     }
 
+    public long getNameTime() {
+        return timeName;
+    }
+
+    public String getCause() {
+        return cause;
+    }
+
+    public void setDetail(String details) {
+        this.details = details;
+    }
+
+    public long getTimeCause() {
+        return tCause;
+    }
+
+    public String getDetails() {
+        return details;
+    }
+
 }
